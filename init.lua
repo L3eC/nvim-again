@@ -1,5 +1,11 @@
 require("config.lazy")
 
+vim.cmd("colorscheme onedark_vivid")
+vim.cmd("hi StatusLine guibg=gray13") -- todo: find the actual right one
+vim.cmd("hi StatusLineNC guibg=gray13")
+vim.cmd("set number")
+vim.opt.clipboard = "unnamedplus"
+
 require("mason").setup()
 require("mason-lspconfig").setup()
 require("lspconfig").pyright.setup {}
@@ -11,11 +17,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     update_in_insert = true,
   }
 )
-
-vim.cmd("colorscheme onedark_vivid")
-vim.cmd("hi StatusLine guibg=gray13") -- todo: find the actual right one
-vim.cmd("hi StatusLineNC guibg=gray13")
-vim.cmd("set number")
 
 vim.keymap.set('n', 'ew', '<Plug>(easymotion-bd-w)')
 vim.keymap.set('n', 'ef', '<Plug>(easymotion-s)')
