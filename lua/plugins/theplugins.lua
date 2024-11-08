@@ -38,5 +38,31 @@ return {
 	{
 		"easymotion/vim-easymotion"
 	},
+	{
+		'hrsh7th/cmp-buffer',
+		'hrsh7th/cmp-path',
+		'hrsh7th/cmp-cmdline',
+		'hrsh7th/nvim-cmp',
+		'hrsh7th/cmp-nvim-lsp',
+	},
+	{
+		"hrsh7th/cmp-nvim-lsp-signature-help"
+	},
+	{
+		"tpope/vim-repeat"
+	},
+	--[[
+	{
+	  "ray-x/lsp_signature.nvim",
+	  event = "InsertEnter",
+	  opts = {
+	    bind = true,
+	    handler_opts = {
+	      border = "rounded"
+	    }
+	  },
+	  config = function(_, opts) require'lsp_signature'.setup(opts) end
+	},
+	]]--
 }
 
