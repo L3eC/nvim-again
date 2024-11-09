@@ -1,4 +1,5 @@
 {
+  "auto-pairs": { "branch": "master", "commit": "39f06b873a8449af8ff6a3eee716d3da14d63a76" },
   "cmp-buffer": { "branch": "main", "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
   "cmp-cmdline": { "branch": "main", "commit": "d250c63aa13ead745e3a40f61fdd3470efde3923" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "39e2eda76828d88b773cc27a3f61d2ad782c922d" },
@@ -9,11 +10,10 @@
   "mason.nvim": { "branch": "main", "commit": "e2f7f9044ec30067bc11800a9e266664b88cda22" },
   "nvim-cmp": { "branch": "main", "commit": "f17d9b4394027ff4442b298398dfcaab97e40c4f" },
   "nvim-lspconfig": { "branch": "master", "commit": "d01864641c6e43c681c3e9f6cf4745c75fdd9dcc" },
-  "onedarkpro.nvim": { "branch": "main", "commit": "6e0016ef3e3df1a4bb30821524b814b53c1e8bf7" },
+  "onedarkpro.nvim": { "branch": "main", "commit": "c28a6492cfd8752168abfa60ce39d1fc50862b0f" },
   "plenary.nvim": { "branch": "master", "commit": "2d9b06177a975543726ce5c73fca176cedbffe9d" },
   "telescope.nvim": { "branch": "master", "commit": "a0bbec21143c7bc5f8bb02e0005fa0b982edc026" },
   "vim-easymotion": { "branch": "master", "commit": "b3cfab2a6302b3b39f53d9fd2cd997e1127d7878" },
-  "vim-repeat": { "branch": "master", "commit": "65846025c15494983dafe5e3b46c8f88ab2e9635" },
   "vim-startify": { "branch": "master", "commit": "4e089dffdad46f3f5593f34362d530e8fe823dcf" },
   "which-key.nvim": { "branch": "main", "commit": "68e37e12913a66b60073906f5d3f14dee0de19f2" }
 }

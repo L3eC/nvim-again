@@ -9,6 +9,12 @@
 -- remap esc??
 -- git stuff
 -- persistent sessions
+-- automatically activate correct venv for a given project
+-- make it look more unified
+-- no autocomplete on comments or text files
+-- make autocomplete delete the rest of a wrong words, e.g. if im in example, go to x, type ac, it should complete to exact, not exactmple
+-- make dashed/indented lists preserve the same indent, so a text that wraps around won't forget its indentation 
+	-- :help formatoptions?
 
 require("config.lazy")
 
@@ -16,6 +22,7 @@ vim.cmd("colorscheme onedark_vivid")
 vim.cmd("hi StatusLine guibg=gray13") -- todo: find the actual right one
 vim.cmd("hi StatusLineNC guibg=gray13")
 vim.cmd("set number")
+vim.cmd("set linebreak")
 vim.opt.clipboard = "unnamedplus"
 
 require("mason").setup()

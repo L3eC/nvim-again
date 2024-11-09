@@ -49,7 +49,7 @@ return {
 		"hrsh7th/cmp-nvim-lsp-signature-help"
 	},
 	{
-		"tpope/vim-repeat"
+		"jiangmiao/auto-pairs"
 	},
 	--[[
 	{
