@@ -1,14 +1,11 @@
 -- todo: 
 -- make gd go to definition, not the random thing it is rn
 -- open recent files more easily than typing their names verbatim
--- make matching parentheses work (with something better than keybinds) (important)
--- add easy keybind to search telescope within open buffers (not buffer names)
 -- add keybind to go somewhere with easymotion and enter insert mode or
 -- add easymotion insert mode keybinds?
 -- make it easier to split a window and open some file in the new half
 -- remap esc??
 -- git stuff
--- persistent sessions
 -- automatically activate correct venv for a given project
 -- make it look more unified
 -- no autocomplete on comments or text files
@@ -18,6 +15,7 @@
 
 require("config.lazy")
 
+--------------- BASIC STUFF/VIM NATIVE SETTINGS ---------------
 vim.cmd("colorscheme onedark_vivid")
 vim.cmd("hi StatusLine guibg=gray13") -- todo: find the actual right one
 vim.cmd("hi StatusLineNC guibg=gray13")
@@ -25,6 +23,9 @@ vim.cmd("set number")
 vim.cmd("set linebreak")
 vim.opt.clipboard = "unnamedplus"
 
+vim.keymap.set('n', 'ZZ', function() vim.cmd("wa"); vim.cmd("qa!"); end)
+
+---------------- LSP STUFF ----------------
 require("mason").setup()
 require("mason-lspconfig").setup()
 require("lspconfig").pyright.setup {}
@@ -37,6 +38,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
+--------------- EASYMOTION -----------------
 vim.keymap.set('n', 'ew', '<Plug>(easymotion-bd-w)')
 vim.keymap.set('n', 'ef', '<Plug>(easymotion-s)')
 vim.keymap.set('n', 'el', '<Plug>(easymotion-bd-jk)')
@@ -50,19 +52,15 @@ vim.keymap.set('v', 'ef', '<Plug>(easymotion-s)')
 vim.keymap.set('v', 'el', '<Plug>(easymotion-bd-jk)')
 vim.keymap.set('v', 'ee', '<Plug>(easymotion-bd-e)')
 
-vim.keymap.set('i', '{', '{}<Esc>ha')
-vim.keymap.set('i', '(', '()<Esc>ha')
-vim.keymap.set('i', '[', '[]<Esc>ha')
-vim.keymap.set('i', '\'', '\'\'<Esc>ha')
-vim.keymap.set('i', '"', '""<Esc>ha')
-vim.keymap.set('i', '`', '``<Esc>ha')
-
+-------------- TELESCOPE --------------------
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+vim.keymap.set('n', 'gr', builtin.lsp_references, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+vim.keymap.set('n', '<leader>fj', function()builtin.live_grep({grep_open_files=true})end, {desc = 'Telescope grep in open files'})
 
+vim.cmd("let g:startify_session_persistence=1")
 
 ------------- Autocompletion -----------
 local cmp = require'cmp'
