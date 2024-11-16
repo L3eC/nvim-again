@@ -24,6 +24,11 @@ vim.cmd("set linebreak")
 vim.opt.clipboard = "unnamedplus"
 
 vim.keymap.set('n', 'ZZ', function() vim.cmd("wa"); vim.cmd("qa!"); end)
+vim.keymap.set('n', 'G', 'G$')
+vim.keymap.set('n', 'j', 'gj')
+vim.keymap.set('n', 'k', 'gk')
+
+vim.cmd("let g:startify_session_persistence=1")
 
 ---------------- LSP STUFF ----------------
 require("mason").setup()
@@ -37,6 +42,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     update_in_insert = true,
   }
 )
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
 
 --------------- EASYMOTION -----------------
 vim.keymap.set('n', 'ew', '<Plug>(easymotion-bd-w)')
@@ -60,12 +66,15 @@ vim.keymap.set('n', 'gr', builtin.lsp_references, { desc = 'Telescope buffers' }
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 vim.keymap.set('n', '<leader>fj', function()builtin.live_grep({grep_open_files=true})end, {desc = 'Telescope grep in open files'})
 
-vim.cmd("let g:startify_session_persistence=1")
 
 ------------- Autocompletion -----------
 local cmp = require'cmp'
 
+
 cmp.setup({
+  enabled = function()
+	  return not (vim.bo.filetype == 'text')
+  end,
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
@@ -98,5 +107,5 @@ cmp.setup({
     }, 
     {
        { name = 'buffer' },
-    })
+    }),
 })
