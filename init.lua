@@ -49,7 +49,6 @@ vim.keymap.set('n', 'di,', 'f,dF,x', {desc = 'delete in comma\'d clause'})
 -- autosaving
 
 vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter", "InsertLeave"}, {
-  command = "silent wa"
   callback = function()
 	  vim.cmd("silent wa")
 	  vim.cmd("set noswapfile ")
@@ -123,6 +122,12 @@ vim.keymap.set('v', 'ee', '<Plug>(easymotion-bd-e)')
 
 -------------- TELESCOPE --------------------
 
+-- haha secret nice try mr hacker
+thesaurus_api_key_file = io.open("/home/leo/thesaurusApiKey.txt", "r")
+io.input(thesaurus_api_key_file)
+thesaurus_api_key = io.read()
+
+vim.g.dictionary_api_key = thesaurus_api_key
 require('telescope').setup{ 
   defaults = { 
     file_ignore_patterns = { 
@@ -137,7 +142,7 @@ require('telescope').setup{
       case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
     },
     thesaurus = {
-        provider = 'datamuse',
+        provider = 'dictionaryapi',
     },
   }
 }
@@ -150,7 +155,7 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live gr
 vim.keymap.set('n', 'gr', builtin.lsp_references, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 vim.keymap.set('n', '<leader>fj', function()builtin.live_grep({grep_open_files=true})end, {desc = 'Telescope grep in open files'})
-vim.keymap.set('n', '<leader>k', '<cmd>Telescope thesaurus lookup<CR>')
+vim.keymap.set({'n', 'v', 'o'}, '<leader>k', '<cmd>Telescope thesaurus lookup<CR>')
 
 ------------- Autocompletion -----------
 local cmp = require'cmp'
