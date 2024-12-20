@@ -33,7 +33,13 @@ return {
 	{
 		'nvim-telescope/telescope.nvim', tag = '0.1.8',
 		-- or                              , branch = '0.1.x',
-		dependencies = { 'nvim-lua/plenary.nvim' }
+		dependencies = { {'nvim-lua/plenary.nvim'},
+				 {'nvim-telescope/telescope-fzf-native.nvim', build = 'make'},
+		},
+	},
+	{
+  		'nvim-telescope/telescope.nvim',
+  		dependencies = { 'rafi/telescope-thesaurus.nvim' },
 	},
 	{
 		"easymotion/vim-easymotion"
@@ -53,23 +59,21 @@ return {
 	},
 	{ 'nvim-treesitter/nvim-treesitter' },
 	{
-	  'linux-cultist/venv-selector.nvim',
-	  dependencies = { 'neovim/nvim-lspconfig', 'nvim-telescope/telescope.nvim', 'mfussenegger/nvim-dap-python' },
-	  opts = {
-	    -- Your options go here
-		name = {"venv", ".venv"},
-		parents = 5
-	    -- auto_refresh = false
-	  },
-	  event = 'VeryLazy', -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
-	  keys = {
-	    -- Keymap to open VenvSelector to pick a venv.
-	    { '<leader>vs', '<cmd>VenvSelect<cr>' },
-	    -- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
-	    { '<leader>vc', '<cmd>VenvSelectCached<cr>' },
-	  },
-	}
-	--[[
+	  "linux-cultist/venv-selector.nvim",
+	    dependencies = {
+	      "neovim/nvim-lspconfig",
+	      "mfussenegger/nvim-dap", "mfussenegger/nvim-dap-python", --optional
+	      { "nvim-telescope/telescope.nvim", branch = "0.1.x", dependencies = { "nvim-lua/plenary.nvim" } },
+	    },
+	  lazy = false,
+	  branch = "regexp", -- This is the regexp branch, use this for the new version
+	  config = function()
+	      require("venv-selector").setup()
+	    end,
+	    keys = {
+	      { "<leader>vs", "<cmd>VenvSelect<cr>" },
+	    },
+	},
 	{
 	  "ray-x/lsp_signature.nvim",
 	  event = "InsertEnter",
@@ -77,10 +81,14 @@ return {
 	    bind = true,
 	    handler_opts = {
 	      border = "rounded"
-	    }
+	    },
+	    always_trigger = true
 	  },
 	  config = function(_, opts) require'lsp_signature'.setup(opts) end
 	},
-	]]--
+	{
+		"L3ec/myplugin",
+		lazy = false
+	},
 }
 
