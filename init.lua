@@ -122,7 +122,6 @@ vim.keymap.set('v', 'ee', '<Plug>(easymotion-bd-e)')
 
 -------------- TELESCOPE --------------------
 
--- haha secret nice try mr hacker
 thesaurus_api_key_file = io.open("/home/leo/thesaurusApiKey.txt", "r")
 io.input(thesaurus_api_key_file)
 thesaurus_api_key = io.read()
@@ -131,7 +130,7 @@ vim.g.dictionary_api_key = thesaurus_api_key
 require('telescope').setup{ 
   defaults = { 
     file_ignore_patterns = { 
-	".venv"
+	-- ".venv"
     }
   },
   extensions = {
@@ -144,11 +143,16 @@ require('telescope').setup{
     thesaurus = {
         provider = 'dictionaryapi',
     },
+    file_browser = {
+	hijack_netrw = true
+    }
   }
 }
 
 local builtin = require('telescope.builtin')
 require('telescope').load_extension('fzf')
+require("telescope").load_extension "file_browser"
+require('telescope').load_extension('thesaurus')
 
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
@@ -156,7 +160,7 @@ vim.keymap.set('n', 'gr', builtin.lsp_references, { desc = 'Telescope buffers' }
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 vim.keymap.set('n', '<leader>fj', function()builtin.live_grep({grep_open_files=true})end, {desc = 'Telescope grep in open files'})
 vim.keymap.set({'n', 'v', 'o'}, '<leader>k', '<cmd>Telescope thesaurus lookup<CR>')
-
+vim.keymap.set("n", "<space>fb", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")
 ------------- Autocompletion -----------
 local cmp = require'cmp'
 

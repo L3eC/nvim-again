@@ -90,5 +90,9 @@ return {
 		"L3ec/myplugin",
 		lazy = false
 	},
+	{
+	    "nvim-telescope/telescope-file-browser.nvim",
+	    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+	}
 }
 
