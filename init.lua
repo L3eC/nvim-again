@@ -41,8 +41,14 @@ vim.keymap.set('n', 'k', 'gk')
 vim.keymap.set('v', 'j', 'gj')
 vim.keymap.set('v', 'k', 'gk')
 
-vim.keymap.set('n', '<leader>jo', '^ld0i<BS><Esc>kA.<Esc>j$', { desc = 'join sentences in outline' })
-vim.keymap.set('n', '<leader>jp', '^ld0i<BS>.<Esc>kA.<Esc>j$', { desc = 'join sentences in outline adding periods' })
+--[[
+
+- test another test
+
+--]]
+
+vim.keymap.set('n', '<leader>jo', '^ld0i<BS><Esc>', { desc = 'join sentences in outline' })
+vim.keymap.set('n', '<leader>jp', '^ld0i<BS>.<Esc>', { desc = 'join sentences in outline adding periods' })
 
 vim.keymap.set('n', 'di,', 'f,dF,x', {desc = 'delete in comma\'d clause'})
 
