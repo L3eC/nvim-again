@@ -1,4 +1,4 @@
--- todo: 
+-- TODO: things
 -- add keybind to go somewhere with easymotion and enter insert mode or
 -- add easymotion insert mode keybinds?
 -- git stuff
@@ -7,7 +7,6 @@
 -- make dashed/indented lists preserve the same indent, so a text that wraps around won't forget its indentation 
 	-- :help formatoptions?
 -- MAKE AUTOCOMPLETION NOT JUMP AND MOVE AROUND SO MUCH
--- MAKE SIGNATURE HELP NOT DISAPPEAR NONSTOP
 -- add easy way to start new text project with main and lhs, rhs buffers
 -- make write or die writing plugin
 	-- make "editing" mode where deletes/edits count not just appends?
@@ -41,11 +40,8 @@ vim.keymap.set('n', 'k', 'gk')
 vim.keymap.set('v', 'j', 'gj')
 vim.keymap.set('v', 'k', 'gk')
 
---[[
-
-- test another test
-
---]]
+vim.keymap.set('n', '<C-k>', function() vim.cmd("tabnext") end)
+vim.keymap.set('n', '<C-j>', function() vim.cmd("tabprevious") end)
 
 vim.keymap.set('n', '<leader>jo', '^ld0i<BS><Esc>', { desc = 'join sentences in outline' })
 vim.keymap.set('n', '<leader>jp', '^ld0i<BS>.<Esc>', { desc = 'join sentences in outline adding periods' })
@@ -97,23 +93,9 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {desc="go to definition"})
 vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, {desc="rename symbol under cursor"})
 
--- automatically use cached venv for python projects
---[[
-vim.api.nvim_create_autocmd({'BufNew'}, {
-  desc = 'Auto select virtualenv Nvim open',
-  pattern = '*',
-  callback = function() vim.cmd("silent VenvSelectCached") end,
-})
---]]
---[[
-vim.lsp.handlers['textDocument/signatureHelp']  = vim.lsp.with(vim.lsp.handlers['signature_help'], {
-    border = 'single',
-    close_events = { "CursorMoved", "BufHidden" },
-})
-vim.keymap.set('i', '<c-s>', vim.lsp.buf.signature_help)
---]]
+
 --------------- EASYMOTION -----------------
-vim.keymap.set('n', 'ew', '<Plug>(easymotion-bd-w)')
+vim.keymap.set('n', '<e-w>', '<Plug>(easymotion-bd-w)')
 vim.keymap.set('n', 'ef', '<Plug>(easymotion-s)')
 vim.keymap.set('n', 'el', '<Plug>(easymotion-bd-jk)')
 vim.keymap.set('n', 'ee', '<Plug>(easymotion-bd-e)')
@@ -167,7 +149,9 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help ta
 vim.keymap.set('n', '<leader>fj', function()builtin.live_grep({grep_open_files=true})end, {desc = 'Telescope grep in open files'})
 vim.keymap.set({'n', 'v', 'o'}, '<leader>k', '<cmd>Telescope thesaurus lookup<CR>')
 vim.keymap.set("n", "<space>fb", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")
+
 ------------- Autocompletion -----------
+
 local cmp = require'cmp'
 
 
