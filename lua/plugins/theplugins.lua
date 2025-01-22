@@ -42,6 +42,15 @@ return {
   		dependencies = { 'rafi/telescope-thesaurus.nvim' },
 	},
 	{
+	    'smoka7/hop.nvim',
+	    version = "*",
+	    --[[
+	    opts = {
+		keys = 'etovxqpdygfblzhckisuran'
+	    }
+	    ]]
+	},
+	{
 		"easymotion/vim-easymotion"
 	},
 	{

@@ -2,16 +2,19 @@
 -- add keybind to go somewhere with easymotion and enter insert mode or
 -- add easymotion insert mode keybinds?
 -- git stuff
+	-- blame
 -- make it look more unified
 -- make autocomplete delete the rest of a wrong words, e.g. if im in example, go to x, type ac, it should complete to exact, not exactmple
 -- make dashed/indented lists preserve the same indent, so a text that wraps around won't forget its indentation 
 	-- :help formatoptions?
--- MAKE AUTOCOMPLETION NOT JUMP AND MOVE AROUND SO MUCH
+	-- maybe not, since we want paragraphs to work right
+-- make autocomplete menu not so big
 -- add easy way to start new text project with main and lhs, rhs buffers
 -- make write or die writing plugin
 	-- make "editing" mode where deletes/edits count not just appends?
 	-- make super dangerous mode that deletes a random file if you run out of time?
--- replace swapfile with just writing the current file
+-- replace easymotion with updated thign
+
 require("config.lazy")
 
 --------------- BASIC STUFF/VIM NATIVE SETTINGS ---------------
@@ -20,6 +23,7 @@ vim.cmd("hi StatusLine guibg=gray13")
 vim.cmd("hi StatusLineNC guibg=gray13")
 vim.cmd("set number")
 vim.cmd("set linebreak")
+-- vim.cmd("set autochdir") seems to break a lot of stuff
 vim.cmd(":hi DiagnosticVirtualTextHint guifg=#415a80")
 vim.cmd(":hi DiagnosticSignHint guifg=#415a80")
 vim.opt.clipboard = "unnamedplus"
@@ -45,6 +49,8 @@ vim.keymap.set('n', '<C-j>', function() vim.cmd("tabprevious") end)
 
 vim.keymap.set('n', '<leader>jo', '^ld0i<BS><Esc>', { desc = 'join sentences in outline' })
 vim.keymap.set('n', '<leader>jp', '^ld0i<BS>.<Esc>', { desc = 'join sentences in outline adding periods' })
+
+-- vim.keymap.set
 
 vim.keymap.set('n', 'di,', 'f,dF,x', {desc = 'delete in comma\'d clause'})
 
@@ -82,6 +88,24 @@ require "lsp_signature".setup()
 require("mason").setup()
 require("mason-lspconfig").setup()
 require("lspconfig").pyright.setup {}
+require("lspconfig").lua_ls.setup {
+    settings = {
+        Lua = {
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = {'vim'},
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+                enable = false,
+            },
+        },
+    },
+}
 
 -- make diagnostics show up in insert mode
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -90,15 +114,30 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     update_in_insert = false,
   }
 )
-vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {desc="go to definition"})
+
+vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, {desc="go to definition"})
 vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, {desc="rename symbol under cursor"})
 
+-- it'd be nice if this would return to ur current window after quitting the def window
+vim.keymap.set('n', 'gdv', function()
+	vim.cmd("wincmd v")
+	vim.cmd("wincmd l")
+	vim.lsp.buf.definition()
+end)
+vim.keymap.set('n', 'gds', function()
+	vim.cmd("wincmd s")
+	vim.cmd("wincmd j")
+	vim.lsp.buf.definition()
+end)
 
 --------------- EASYMOTION -----------------
-vim.keymap.set('n', '<e-w>', '<Plug>(easymotion-bd-w)')
-vim.keymap.set('n', 'ef', '<Plug>(easymotion-s)')
-vim.keymap.set('n', 'el', '<Plug>(easymotion-bd-jk)')
-vim.keymap.set('n', 'ee', '<Plug>(easymotion-bd-e)')
+
+require('hop').setup()
+
+vim.keymap.set('n', '<leader>w', '<Plug>(easymotion-overwin-w)')
+vim.keymap.set('n', '<leader>s', '<Plug>(easymotion-overwin-f)')
+vim.keymap.set('n', '<leader>l', '<Plug>(easymotion-bd-jk)')
+vim.keymap.set('n', '<leader>e', '<Plug>(easymotion-bd-e)')
 vim.keymap.set('o', 'ew', '<Plug>(easymotion-bd-w)')
 vim.keymap.set('o', 'ef', '<Plug>(easymotion-s)')
 vim.keymap.set('o', 'el', '<Plug>(easymotion-bd-jk)')
@@ -195,6 +234,7 @@ cmp.setup({
        -- { name = 'buffer' },
     }),
 })
+
 
 -- make autocomplete menu show up after some time
 --[[
