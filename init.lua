@@ -82,6 +82,9 @@ vim.keymap.set("n", "<C-s>", function() vim.cmd("Startify") end)
 --
 vim.keymap.set("i", "<C-c>", "<C-x><C-o>")
 
+vim.keymap.set('i', '<C-d>', '<Esc>0YpA')
+
+
 require "lsp_signature".setup()
 
 ---------------- LSP STUFF ----------------
@@ -115,7 +118,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
-vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, {desc="go to definition"})
+vim.keymap.set('n', 'gdd', vim.lsp.buf.definition, {desc="go to definition"})
 vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, {desc="rename symbol under cursor"})
 
 -- it'd be nice if this would return to ur current window after quitting the def window
