@@ -87,6 +87,8 @@ require "lsp_signature".setup()
 ---------------- LSP STUFF ----------------
 require("mason").setup()
 require("mason-lspconfig").setup()
+
+require("lspconfig").clangd.setup {}
 require("lspconfig").pyright.setup {}
 require("lspconfig").lua_ls.setup {
     settings = {
@@ -129,6 +131,8 @@ vim.keymap.set('n', 'gds', function()
 	vim.cmd("wincmd j")
 	vim.lsp.buf.definition()
 end)
+
+vim.keymap.set('n', '<leader>gf', vim.lsp.buf.code_action)
 
 --------------- EASYMOTION -----------------
 
